@@ -1,0 +1,12 @@
+upstream quiz-api{
+    server ${QUIZ_API_HOST}:${QUIZ_API_PORT};
+}
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+
+    location /api {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://quiz-api;
+    }
+}
